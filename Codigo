@@ -1,42 +1,41 @@
-pergunta_1 = input("Defina sua primeira pergunta: ")
-resposta_1 = input("Defina a resposta dessa pergunta: ")
+questions = []
+answers = [] 
+students_answers = []
 
-pergunta_2 = input("Defina a segunda pergunta: ")
-resposta_2 = input("Defina a resposta dessa pergunta: ")
+def get_questions():
+    keep_goin = True
+    number_of_question = 0
+    while(keep_goin):
+        questions.append(input(f"Defina sua {number_of_question + 1}º pergunta: "))
+        answers.append(input("Defina a resposta dessa pergunta: "))
+        number_of_question += 1
 
-pergunta_3 = input("Defina a terceira pergunta: ")
-resposta_3 = input("Defina a resposta dessa pergunta: ")
-
-notaAluno = 0
-
-print ("primeira pergunta: " + pergunta_1)
-respostaAluno_1 = input("Qual a resposta correta?") 
-
-if resposta_1 == respostaAluno_1:
-  print ("Muito bem! resposta correta!")
-  notaAluno = (notaAluno + 1)
-else:
-  print ("Continue estudando.")
-
-print ("segunda pergunta: " + pergunta_2)
-respostaAluno_2 = input("Qual a resposta correta?")
-
-if resposta_2 == respostaAluno_2:
-  print ("Muito bem! resposta correta!")
-  notaAluno = (notaAluno + 1)
-else:
-  print ("Continue estudando.")
-
-print ("terceira pergunta: " + pergunta_3)
-respostaAluno_3 = input("Qual a resposta correta?")
-
-if resposta_3 == respostaAluno_3:
-  print ("Muito bem! resposta correta!")
-  notaAluno = (notaAluno + 1)
-else:
-  print ("Continue estudando.")
-
-if notaAluno >= 2:
-    print ("Voce passou!")
-else:
-   print ("REPROVOU BURRO!")
+        x = input("Deseja continuar? s/N: \n").lower()
+        if x != "s":
+            keep_goin = False
+            
+def get_answers():
+    score = 0
+    number_of_question = 0
+    for question in questions:
+        students_answers.append(input(f"{number_of_question+1}: {question}: \n"))
+        if answers[number_of_question] == students_answers[number_of_question]:
+            print("Muito bem!")
+            score += 1
+        else:
+            print("Continue estudando.")
+        number_of_question += 1
+    return score
+        
+def show_results(score):
+    final_score = float(score)/float(len(questions))
+    if final_score >= 0.6:
+        print(f"Você foi aprovado! \n sua nota foi {final_score}")
+    else:
+        print(f"BURRO! \n sua nota foi {final_score}")
+  
+def main():
+    get_questions()
+    show_results(get_answers())
+    
+main()
